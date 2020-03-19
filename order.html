@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+
+<body>
+
+
+
+
+
+    订单: 15210772510 正在处理，请稍等... <br>
+
+    <button id="btn1">清除定时器</button>
+
+    <hr>
+
+
+
+    <script>
+        document.getElementById("btn1").addEventListener('click', function() {
+            alert(123456);
+            clearInterval(t1); //清除定时器
+        });
+
+
+        var t1 = setInterval(aaa, 1000); // ajax轮询
+
+        function aaa() {
+            var httpRequest = new XMLHttpRequest();
+
+            var httpRequest = new XMLHttpRequest();
+
+            //处理服务器的响应
+            httpRequest.onreadystatechange = bbb;
+
+            function bbb() {
+                // Process the server response here.
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    // Everything is good, the response was received.
+
+                    if (httpRequest.status === 200) {
+                        // 处理响应数据 JSON或XML 文本
+                        var data_str = httpRequest.responseText; //服务器响应的数据
+                        //console.log(data_str);
+                        //console.log(data_str.errno);
+
+                        //将JSON文本转为 JSON对象
+                        var json_obj = JSON.parse(data_str);
+                        //console.log(json_obj);
+                        //console.log("错误码： " + json_obj.errno);
+                        //console.log("支付状态：" + json_obj.data.status);
+
+                        var pay_status = json_obj.data.status;
+                        //判断支付状态：
+                        if (pay_status == 1) { //已支付
+                            console.log(Math.random());
+                            //window.location = 'https://www.baidu.com';
+                        } else {
+
+                        }
+
+
+
+                    } else {
+                        // There was a problem with the request.
+                        // For example, the response may have a 404 (Not Found)
+                        // or 500 (Internal Server Error) response code.
+                    }
+
+                } else {
+                    // Not ready yet.
+                }
+            };
+
+            //发送请求
+            httpRequest.open('GET', '/order.php', true);
+            httpRequest.send();
+
+        }
+    </script>
+
+</body>
+
+</html>

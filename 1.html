@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/1.css">
+</head>
+
+<body>
+
+    <p>Hello 1906</p>
+
+    <button id="btn1">获取用户信息</button>
+
+    <p id="info"></p>
+
+    <div id="div1"></div>
+
+    <button id="btn2">BAIDU</button>
+
+    <hr>
+    <button id="btn3">随机图片</button><br>
+    <img id="img1" src="images/a1.jpg" alt="">
+
+
+
+    <script>
+        //获取节点btn3
+        var btn3 = document.getElementById("btn3");
+        btn3.addEventListener('click', function(e) {
+            var num = Math.floor(Math.random() * 10) % 4 + 1;
+            console.log(num);
+            var img = "images/" + num + '.jpg';
+            document.getElementById("img1").setAttribute("src", img);
+        })
+
+
+        //获取节点btn2
+        var btn2 = document.getElementById("btn2");
+        btn2.addEventListener('click', function(e) {
+            window.open('https://www.baidu.com');
+        })
+
+
+        //获取节点 #div1
+        var div1 = document.getElementById("div1");
+        div1.addEventListener('click', function(e) { //添加点击事件
+            this.style.backgroundColor = 'red';
+        })
+
+
+
+
+        //获取节点
+        var btn1 = document.getElementById("btn1");
+
+        //给节点绑定事件
+
+        // btn1.addEventListener('mouseover',function (e) {
+        //     alert('hjaha');
+        // })
+
+        //绑定click事件
+        btn1.addEventListener('click', function(e) {
+
+            // new XHR
+            var httpRequest = new XMLHttpRequest();
+
+            //处理服务器的响应
+            httpRequest.onreadystatechange = xxx;
+
+            //
+            // $.ajax({
+            //     'url': '',
+            //     'type': 'get',
+            //     'dataType': 'json',
+            //     success: function (d) {
+            //         var user_info = d.user_info;
+            //     }
+            // });
+            //
+
+            function xxx() {
+                // Process the server response here.
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    // Everything is good, the response was received.
+
+                    if (httpRequest.status === 200) {
+                        // 处理响应数据 JSON或XML 文本
+                        var data_str = httpRequest.responseText; //服务器响应的数据
+                        console.log(data_str);
+
+                        //将文本转换为 js 对象
+                        var data_obj = JSON.parse(data_str);
+                        console.log(data_obj);
+                        console.log("用户名：" + data_obj.data.user_name);
+
+                        var user_name = data_obj.data.user_name;
+                        //将数据添加至 HTML页面中  （通过创建节点）
+                        document.getElementById("info").innerText = user_name;
+
+
+                    } else {
+                        // There was a problem with the request.
+                        // For example, the response may have a 404 (Not Found)
+                        // or 500 (Internal Server Error) response code.
+                    }
+
+                } else {
+                    // Not ready yet.
+                }
+            };
+
+            //发送请求
+            httpRequest.open('GET', '/api.php', true);
+            httpRequest.send();
+        });
+    </script>
+
+</body>
+
+</html>
