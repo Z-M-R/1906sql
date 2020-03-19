@@ -22,7 +22,7 @@
     for($i=1;$i<=$total;$i++)
     {
 
-        echo " &nbsp;&nbsp;<button class='seat'>{$i}</button> &nbsp;&nbsp;";
+        echo " <button class='seat'>{$i}</button> ";
         if($i%10 ==0){
             echo "<br>";
         }
@@ -37,10 +37,10 @@
 
     for(var i=0;i<seats.length;i++)
     {
-        seats[i].style.backgroundColor = '';        //默认颜色
+        seats[i].style.backgroundColor = 'palegreen';        //默认颜色
         seats[i].addEventListener('click',function(e){
 
-            var ys = confirm("确定要选中此座位吗？" + this.innerHTML)
+            var ys = confirm("确定要这个座位吗？" + this.innerHTML)
             console.log(ys);
             if(ys){
                 //发送ajax请求后端 选中此座位

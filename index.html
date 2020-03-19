@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <p>Hello 1906</p>
+    <button id='btn1'>异步加载</button>
+
+    <script>
+        //获取节点
+        var btn1 = document.getElementById("btn1");
+
+        //给节点绑定事件
+        btn1.addEventListener('mouseover', function(e) {
+            alert('haha');
+        })
+        btn1.addEventListener('click', function(e) {
+
+            var httpRequest = new XMLHttpRequest();
+            console.log(httpRequest);
+
+            //处理服务器的响应
+            httpRequest.onreadystatechange = function() {
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+
+                    if (httpRequest.status === 200) {
+                        alert("服务器处理成功");
+                    } else {
+
+                    }
+
+                } else {
+
+                }
+            };
+
+            httpRequest.open('GET', '/api.php', true);
+            httpRequest.send();
+
+        });
+    </script>
+</body>
+
+</html>
