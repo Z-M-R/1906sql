@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WEBSocket</title>
+</head>
+
+<body>
+
+    <h1>WebSocket</h1>
+
+    <input type="text" id="msg">
+    <button id="btn1">提交</button>
+
+
+    <script>
+        //建立 websocket 连接
+        const socket = new WebSocket('ws://192.168.93.49:9501');
+
+        // 连接已建立
+        socket.addEventListener('open', function(event) {
+            socket.send('knock knock!');
+
+            //向服务器发送数据
+            document.getElementById("btn1").addEventListener('click', function() {
+
+                //获取聊天信息
+                var msg = document.getElementById("msg").value;
+                //console.log(msg);
+
+                socket.send(msg);
+
+            })
+
+        });
+
+        // 监听 服务器消息 （当服务向客户端发送消息时 触发）
+        socket.addEventListener('message', function(event) {
+            console.log('Message from server ', event.data);
+        });
+    </script>
+</body>
+
+</html>
